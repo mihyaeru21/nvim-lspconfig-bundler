@@ -7,8 +7,20 @@ local RUBY_CONFIGS = {
   ruby_ls = {
     gem = 'ruby-lsp',
   },
+  solargraph = {
+    gem = 'solargraph',
+  },
   sorbet = {
     gem = 'sorbet',
+  },
+  steep = {
+    gem = 'steep',
+  },
+  syntax_tree = {
+    gem = 'syntax_tree',
+  },
+  typeprof = {
+    gem = 'typeprof',
   },
 }
 
