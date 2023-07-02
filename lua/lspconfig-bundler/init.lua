@@ -41,6 +41,11 @@ M.setup = function()
     local conf = RUBY_CONFIGS[config.name]
     if not conf then return end
 
+    local cmd = vim.fs.basename(config.cmd[1])
+
+    -- do nothing if 'bundle' already included in cmd
+    if string.find(cmd, 'bundle', 1, true) then return end
+
     -- find Gemfile.lock in project
     local current = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
     if #current == 0 then
