@@ -41,6 +41,11 @@ M.setup = function()
     local conf = RUBY_CONFIGS[config.name]
     if not conf then return end
 
+    local cmd = vim.fs.basename(config.cmd[1])
+
+    -- do nothing if 'bundle' already included in cmd
+    if string.find(cmd, 'bundle', 1, true) then return end
+
     -- find Gemfile.lock in project
     local current = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
     if #current == 0 then
@@ -53,6 +58,9 @@ M.setup = function()
     local path = path_util.sanitize(path_util.join(root_dir, 'Gemfile.lock'))
     local gem_line = ' ' .. conf.gem .. ' ('
     if not contains_str(path, gem_line) then return end
+
+    -- replace `/usr/local/bin/bundle` -> `bundle`
+    config.cmd[1] = cmd
 
     config.cmd = vim.list_extend({ 'bundle', 'exec' }, config.cmd)
   end)
