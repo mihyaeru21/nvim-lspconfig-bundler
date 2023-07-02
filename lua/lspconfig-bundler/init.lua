@@ -54,6 +54,9 @@ M.setup = function()
     local gem_line = ' ' .. conf.gem .. ' ('
     if not contains_str(path, gem_line) then return end
 
+    -- replace `/usr/local/bin/bundle` -> `bundle`
+    config.cmd[1] = cmd
+
     config.cmd = vim.list_extend({ 'bundle', 'exec' }, config.cmd)
   end)
 end
