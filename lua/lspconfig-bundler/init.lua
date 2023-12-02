@@ -4,6 +4,9 @@ local lspconfig = require('lspconfig')
 local path_util = lspconfig.util.path
 
 local RUBY_CONFIGS = {
+  rubocop = {
+    gem = 'rubocop',
+  },
   ruby_ls = {
     gem = 'ruby-lsp',
   },
