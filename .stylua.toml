@@ -1,0 +1,4 @@
+quote_style = 'AutoPreferSingle'
+indent_width = 2
+indent_type = 'Spaces'
+collapse_simple_statement = 'Never'

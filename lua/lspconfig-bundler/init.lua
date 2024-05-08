@@ -7,7 +7,7 @@ local RUBY_CONFIGS = {
   rubocop = {
     gem = 'rubocop',
   },
-  ruby_ls = {
+  ruby_lsp = {
     gem = 'ruby-lsp',
   },
   solargraph = {
@@ -42,12 +42,16 @@ M.setup = function()
   -- If the Gemfile.lock exists and contains a gem that provides the command, add `bundle exec` to `config.cmd`.
   lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
     local conf = RUBY_CONFIGS[config.name]
-    if not conf then return end
+    if not conf then
+      return
+    end
 
     local cmd = vim.fs.basename(config.cmd[1])
 
     -- do nothing if 'bundle' already included in cmd
-    if string.find(cmd, 'bundle', 1, true) then return end
+    if string.find(cmd, 'bundle', 1, true) then
+      return
+    end
 
     -- find Gemfile.lock in project
     local current = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
@@ -55,12 +59,16 @@ M.setup = function()
       current = vim.fn.getcwd()
     end
     local root_dir = lspconfig.util.root_pattern('Gemfile.lock')(path_util.sanitize(current))
-    if not root_dir then return end
+    if not root_dir then
+      return
+    end
 
     -- find the gem in Gemfile.lock
     local path = path_util.sanitize(path_util.join(root_dir, 'Gemfile.lock'))
     local gem_line = ' ' .. conf.gem .. ' ('
-    if not contains_str(path, gem_line) then return end
+    if not contains_str(path, gem_line) then
+      return
+    end
 
     -- replace `/usr/local/bin/bundle` -> `bundle`
     config.cmd[1] = cmd
