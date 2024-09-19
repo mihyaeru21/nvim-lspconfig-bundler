@@ -17,12 +17,18 @@ Call `require('lspconfig-bundler').setup()` before setup each servers.
 No modification of `cmd` is required.
 
 ```lua
-local lspconfig = require('lspconfig')
-
 require('lspconfig-bundler').setup()
-
-lspconfig.ruby_ls.setup {
-  ...
-}
+local lspconfig = require('lspconfig')
+lspconfig.ruby_lsp.setup()
 ```
 
+### `only_bundler`
+
+Setting this option to `true` will enable only the language server for the gem installed in the project.
+
+```lua
+
+require('lspconfig-bundler').setup {
+    only_bundler = true,
+}
+```
